@@ -10,6 +10,17 @@
 <script>
     /** client socket connection */
     const socket = new WebSocket('ws://localhost:8000');
+
+    /** check socket connections to server */
+    socket.onopen = (event) => {
+        /** send a message to server */
+        socket.send("Hi, I'm a new user");
+    }
+
+    /** listen to websocket server message even */
+    socket.onmessage = (event) => {
+        console.log(event.data)
+    }
 </script>
 </body>
 </html>
