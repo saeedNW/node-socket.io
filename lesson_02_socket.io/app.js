@@ -21,7 +21,13 @@ const io = socketIo(server, {
 io.on('connection', (socket) => {
     console.log("new soccket connected");
 
+    /** lesson to client welcome event */
+    socket.on("welcome", (msg) => {
+        console.log(msg);
+    })
 
+    /** send a welcome reply to client */
+    socket.emit("welcome reply", "Hi, welcome to my server");
 });
 
 /** define connection port */

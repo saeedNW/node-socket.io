@@ -13,12 +13,14 @@
 
     /** check socket connections to server */
     socket.on('connect', (data) => {
-        /**
-         * todo@ send a message to server
-         * * message: "Hi, I'm a new user"
-         */
+        /** send a message to server */
+        socket.emit("welcome", "Hi, I'm a new user");
 
-    })
+        /** lesson to server reply */
+        socket.on("welcome reply", (msg) => {
+            console.log(msg);
+        })
+    });
 </script>
 </body>
 </html>
