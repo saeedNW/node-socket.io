@@ -6,6 +6,19 @@
 </head>
 <body>
 
+<script src="socket-client.js"></script>
+<script>
+    /** client socket connection */
+    const socket = io('http://localhost:8000');
 
+    /** check socket connections to server */
+    socket.on('connect', (data) => {
+        /**
+         * todo@ send a message to server
+         * * message: "Hi, I'm a new user"
+         */
+
+    })
+</script>
 </body>
 </html>
