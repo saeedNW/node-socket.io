@@ -8,7 +8,11 @@ const socketIo = require("socket.io")
 const server = http.createServer();
 
 /** create websocket server */
-const io = socketIo(server);
+const io = socketIo(server, {
+    cors: {
+        origin: '*'
+    }
+});
 
 /**
  * listen to socket.io connection event
