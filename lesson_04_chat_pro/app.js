@@ -50,6 +50,7 @@ structure.forEach((namespace) => {
      * connection events happens if user connected to the socket namespace
      */
     io.of(namespace.endpoint).on('connection', (socket) => {
-
+        /** socket event emitter for sending namespaces rooms info to connected socket */
+        socket.emit('roomLoad', namespace.rooms);
     })
 })
