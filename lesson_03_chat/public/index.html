@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul id="chat">
+
+</ul>
+<input id="textbox" type="text">
+<input id="send" type="button" value="Send">
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        /** client socket connection */
+        const socket = io('http://localhost:8000');
+
+        /** socket event listener for getting messages */
+        socket.on("chat_message", (msg) => {
+            $("#chat").append(`<li>${msg}</li>`);
+        })
+
+        $("#send").click((e) => {
+            const text = $("#textbox");
+            const msg = text.val();
+            if (msg) {
+                /** socket event emitter for sending new message */
+                socket.emit("chat_message", msg);
+                text.val('');
+            }
+        })
+    });
+</script>
+</body>
+</html>
