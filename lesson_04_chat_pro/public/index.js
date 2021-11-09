@@ -1,6 +1,12 @@
 $(document).ready(function () {
+    const userName = prompt('enter your name');
+
     /** client socket connection */
-    const socket = io('http://localhost:8000');
+    const socket = io('http://localhost:8000', {
+        query: {
+            userName
+        }
+    });
     /** client namespace socket connection */
     let nsSocket = null;
 
@@ -52,6 +58,8 @@ $(document).ready(function () {
 
         /** remove soket event */
         nsSocket.off('roomInfo');
+        nsSocket.off('onlineUsers');
+        nsSocket.off('newMessage');
 
         /** socket event listener for room info */
         nsSocket.on('roomInfo', (roomInfo) => {
@@ -61,6 +69,28 @@ $(document).ready(function () {
         /** socket event listener for updating online users count to an spesecif endpoint and room */
         nsSocket.on('onlineUsers', (onlineUsers) => {
             $('.onlineCount').html(onlineUsers);
-        })
+        });
+
+        /** socket event listener for receiving new message */
+        nsSocket.on('newMessage', (message) => {
+            $('.chatBox').append(`
+                <div class="messageBox">
+                    <img src="${message.avatar}">
+                    <p class="font-weight-bold userName">${message.userName}</p>
+                    <p>${message.text}</p>
+                    <span class="time">${message.time}</span>
+                </div>
+            `);
+        });
     }
+
+    $('.sendBtn').click(() => {
+        const messageInput = $('.messageInput')
+        const messageText = messageInput.val();
+
+        /** socket event emitter for sending new message */
+        nsSocket.emit('newMessage', messageText);
+
+        messageInput.val('');
+    })
 });

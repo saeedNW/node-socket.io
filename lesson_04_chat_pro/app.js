@@ -50,6 +50,9 @@ structure.forEach((namespace) => {
      * connection events happens if user connected to the socket namespace
      */
     io.of(namespace.endpoint).on('connection', (nsSocket) => {
+        /** set nsSocket userName */
+        nsSocket.userName = nsSocket.handshake.query.userName;
+
         /** socket event emitter for sending namespaces rooms info to connected socket */
         nsSocket.emit('roomLoad', namespace.rooms);
 
@@ -79,7 +82,32 @@ structure.forEach((namespace) => {
             nsSocket.emit('roomInfo', roomInfo);
         });
 
-        nsSocket.on('disconnecting', ()=>{
+        /** socket event listener for receiving new message */
+        nsSocket.on('newMessage', (message) => {
+            /** get user current room name */
+            const currentRoom = Array.from(nsSocket.rooms)[1];
+
+            const messageStruct = {
+                userName: nsSocket.userName,
+                avatar: 'avatar.png',
+                text: message,
+                time: new Date().toLocaleTimeString()
+            }
+
+            /** find user current room in namespace rooms */
+            const room = namespace.rooms.find((room) => {
+                return room.name === currentRoom;
+            });
+
+            /** save message info in room history */
+            room.addMessage(messageStruct);
+
+            /** socket event emitter to send message to all users in user current namespace and room */
+            io.of(namespace.endpoint).in(currentRoom).emit('newMessage', messageStruct);
+
+        });
+
+        nsSocket.on('disconnecting', () => {
             /** get user last connected room name */
             const lastRoom = Array.from(nsSocket.rooms)[1];
 
@@ -88,9 +116,9 @@ structure.forEach((namespace) => {
 
             /** update online users count */
             updateOnlineUsers(namespace.endpoint, lastRoom);
-        })
-    })
-})
+        });
+    });
+});
 
 async function updateOnlineUsers(endpoint, roomName) {
     /** socket method for geting all online users for an spesecif endpoint and room */
