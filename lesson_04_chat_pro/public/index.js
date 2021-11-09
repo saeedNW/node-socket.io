@@ -75,6 +75,8 @@ $(document).ready(function () {
                     </div>
                 `);
             });
+
+            $('.chatBox').scrollTop($('.chatBox')[0].scrollHeight);
         });
 
         /** socket event listener for updating online users count to an spesecif endpoint and room */
@@ -92,6 +94,8 @@ $(document).ready(function () {
                     <span class="time">${message.time}</span>
                 </div>
             `);
+
+            $('.chatBox').scrollTop($('.chatBox')[0].scrollHeight);
         });
     }
 
