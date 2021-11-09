@@ -44,9 +44,9 @@ NS4.addRoom(new RoomController('gtav', 'GTAV'));
 /** create 4th room for namespace 4 */
 NS4.addRoom(new RoomController('farcry', 'Farcry'));
 /** create 5th room for namespace 4 */
-NS4.addRoom(new RoomController('oryAndTheBlindForest', 'Ori and the Blind Forest'));
+NS4.addRoom(new RoomController('oryAndTheBlindForest', 'Ori BF'));
 /** create 6th room for namespace 4 */
-NS4.addRoom(new RoomController('oriAndTheWillOfTheWisps', 'Ori and the Will of the Wisps'));
+NS4.addRoom(new RoomController('oriAndTheWillOfTheWisps', 'Ori WW'));
 
 
 module.exports = [NS1, NS2, NS3, NS4]

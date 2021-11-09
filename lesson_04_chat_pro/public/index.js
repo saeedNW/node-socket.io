@@ -2,13 +2,14 @@ $(document).ready(function () {
     /** client socket connection */
     const socket = io('http://localhost:8000');
     /** client namespace socket connection */
-    let NSsocket = null;
+    let nsSocket = null;
 
     /** socket event listener for connection */
     socket.on("connect", () => {
         /** socket event listener for getting namespaces info */
         socket.on('nameSpaceLoad', (NSData) => {
-            $('.groupLists').html('')
+            $('.groupLists').html('');
+
             NSData.forEach((namespace) => {
                 $('.groupLists').append(`<div class="btnJoin mt-2 joinNameSpace" ns="${namespace.endpoint}">${namespace.title}</div>`);
             });
@@ -22,6 +23,20 @@ $(document).ready(function () {
     });
 
     function joinNamespace(endpoint) {
-        NSsocket = io(`http://localhost:8000${endpoint}`);
+        /** close connection from previous namespace socket connection */
+        if (nsSocket) {
+            nsSocket.close();
+        }
+
+        nsSocket = io(`http://localhost:8000${endpoint}`);
+
+        /** socket event listener for getting namespace rooms info */
+        nsSocket.on('roomLoad', (roomsData) => {
+            $('.roomsLists').html('');
+
+            roomsData.forEach((room) => {
+                $('.roomsLists').append(`<div class="btnJoin mt-2 joinRoom" roomName="${room.name}">${room.title}</div>`);
+            });
+        });
     }
 });
