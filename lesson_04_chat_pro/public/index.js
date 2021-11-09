@@ -34,7 +34,11 @@ $(document).ready(function () {
             nsSocket.close();
         }
 
-        nsSocket = io(`http://localhost:8000${endpoint}`);
+        nsSocket = io(`http://localhost:8000${endpoint}`, {
+            query: {
+                userName
+            }
+        });
 
         /** socket event listener for getting namespace rooms info */
         nsSocket.on('roomLoad', (roomsData) => {
