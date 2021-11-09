@@ -61,16 +61,41 @@ structure.forEach((namespace) => {
             /** disconnect socket from last connected room */
             nsSocket.leave(lastRoom);
 
+            /** update online users count */
+            updateOnlineUsers(namespace.endpoint, lastRoom);
+
             /** nsSocket room connection */
             nsSocket.join(roomName);
+
+            /** update online users count */
+            updateOnlineUsers(namespace.endpoint, roomName);
 
             /** get room info */
             const roomInfo = namespace.rooms.find((room) => {
                 return room.name === roomName
-            })
+            });
 
             /** send room info to client */
             nsSocket.emit('roomInfo', roomInfo);
         });
+
+        nsSocket.on('disconnecting', ()=>{
+            /** get user last connected room name */
+            const lastRoom = Array.from(nsSocket.rooms)[1];
+
+            /** disconnect socket from last connected room */
+            nsSocket.leave(lastRoom);
+
+            /** update online users count */
+            updateOnlineUsers(namespace.endpoint, lastRoom);
+        })
     })
 })
+
+async function updateOnlineUsers(endpoint, roomName) {
+    /** socket method for geting all online users for an spesecif endpoint and room */
+    const onlineUsers = await io.of(endpoint).in(roomName).allSockets();
+
+    /** socket event emitter for sending online users count to an spesecif endpoint and room */
+    io.of(endpoint).in(roomName).emit('onlineUsers', Array.from(onlineUsers).length);
+}

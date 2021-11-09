@@ -57,5 +57,10 @@ $(document).ready(function () {
         nsSocket.on('roomInfo', (roomInfo) => {
             $('.roomName').html(roomInfo.title)
         });
+
+        /** socket event listener for updating online users count to an spesecif endpoint and room */
+        nsSocket.on('onlineUsers', (onlineUsers) => {
+            $('.onlineCount').html(onlineUsers);
+        })
     }
 });
