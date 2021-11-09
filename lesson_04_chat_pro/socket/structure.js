@@ -10,7 +10,7 @@ const NS2 = new NamespaceController('برنامه نویسی', '/programming');
 /** create 3rd namespace */
 const NS3 = new NamespaceController('گرافیک', '/graphic');
 /** create 4th namespace */
-const NS4 = new NamespaceController('بازی های دیجیتال', '/games');
+const NS4 = new NamespaceController('گیم', '/games');
 
 /** create 1st room for namespace 1 */
 NS1.addRoom(new RoomController('friends', 'دوستانه'));
