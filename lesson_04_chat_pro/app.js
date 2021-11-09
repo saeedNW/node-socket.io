@@ -31,7 +31,7 @@ const io = socketIo(server, {
  * connection events happens if user connected to the socket
  */
 io.on('connection', (socket) => {
-    /** save namespacess data */
+    /** save namespaces data */
     const nsDate = structure.map((namespace) => {
         return {
             title: namespace.title,
@@ -42,3 +42,14 @@ io.on('connection', (socket) => {
     /** socket event emitter for sending namespaces info to connected socket */
     socket.emit('nameSpaceLoad', nsDate);
 });
+
+/** loop over namespaces */
+structure.forEach((namespace) => {
+    /**
+     * listen to socket.io connection event for each namespace
+     * connection events happens if user connected to the socket namespace
+     */
+    io.of(namespace.endpoint).on('connection', (socket) => {
+
+    })
+})
