@@ -37,6 +37,25 @@ $(document).ready(function () {
             roomsData.forEach((room) => {
                 $('.roomsLists').append(`<div class="btnJoin mt-2 joinRoom" roomName="${room.name}">${room.title}</div>`);
             });
+
+            joinRoom(roomsData[0].name);
+        });
+    }
+
+    $(document).on('click', '.joinRoom', function () {
+        joinRoom($(this).attr('roomName'));
+    });
+
+    function joinRoom(roomName) {
+        /** socket event emitter for room connection confirm */
+        nsSocket.emit('joinRoom', roomName);
+
+        /** remove soket event */
+        nsSocket.off('roomInfo');
+
+        /** socket event listener for room info */
+        nsSocket.on('roomInfo', (roomInfo) => {
+            $('.roomName').html(roomInfo.title)
         });
     }
 });

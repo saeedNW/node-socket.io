@@ -52,5 +52,25 @@ structure.forEach((namespace) => {
     io.of(namespace.endpoint).on('connection', (nsSocket) => {
         /** socket event emitter for sending namespaces rooms info to connected socket */
         nsSocket.emit('roomLoad', namespace.rooms);
+
+        /** socket event listener for room connection confirm */
+        nsSocket.on('joinRoom', (roomName) => {
+            /** get user last connected room name */
+            const lastRoom = Array.from(nsSocket.rooms)[1];
+
+            /** disconnect socket from last connected room */
+            nsSocket.leave(lastRoom);
+
+            /** nsSocket room connection */
+            nsSocket.join(roomName);
+
+            /** get room info */
+            const roomInfo = namespace.rooms.find((room) => {
+                return room.name === roomName
+            })
+
+            /** send room info to client */
+            nsSocket.emit('roomInfo', roomInfo);
+        });
     })
 })
