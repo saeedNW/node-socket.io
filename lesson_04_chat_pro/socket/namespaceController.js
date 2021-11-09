@@ -5,11 +5,11 @@ class NamespaceController {
     /**
      * namespace constractor
      * @param {string} title namespace title => programmming, gaming, .etc
-     * @param {string} endPoint namespace end point => /programming, /gaming, .etc
+     * @param {string} endpoint namespace endpoint => /programming, /gaming, .etc
      */
-    constructor(title, endPoint) {
+    constructor(title, endpoint) {
         this.title = title;
-        this.endPoint = endPoint;
+        this.endpoint = endpoint;
         this.rooms = [];    // namespace rooms array list
     }
 
