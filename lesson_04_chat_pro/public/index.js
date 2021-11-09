@@ -64,6 +64,17 @@ $(document).ready(function () {
         /** socket event listener for room info */
         nsSocket.on('roomInfo', (roomInfo) => {
             $('.roomName').html(roomInfo.title)
+            $('.chatBox').html('');
+            roomInfo.history.forEach((message) => {
+                $('.chatBox').append(`
+                    <div class="messageBox">
+                        <img src="${message.avatar}">
+                        <p class="font-weight-bold userName">${message.userName}</p>
+                        <p>${message.text}</p>
+                        <span class="time">${message.time}</span>
+                    </div>
+                `);
+            });
         });
 
         /** socket event listener for updating online users count to an spesecif endpoint and room */
