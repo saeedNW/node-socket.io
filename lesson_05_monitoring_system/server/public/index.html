@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Machine Information
+        </div>
+        <div class="card-body">
+            <div class="statChartHolder">
+                <div class="progress-pie-chart" type="cpu" data-percent="89">
+                    <div class="ppc-progress cpu-title">
+                        <div class="ppc-progress-fill cpu-bg"></div>
+                    </div>
+                    <div class="ppc-percents cpu-title">
+                        <div class="pcc-percents-wrapper">
+                            <span class="percent-title">%</span>
+                            <p>CPU Usage</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="statChartHolder">
+                <div class="progress-pie-chart" type="ram" data-percent="23">
+                    <div class="ppc-progress ram-title">
+                        <div class="ppc-progress-fill ram-bg"></div>
+                    </div>
+                    <div class="ppc-percents ram-title">
+                        <div class="pcc-percents-wrapper">
+                            <span class="percent-title">%</span>
+                            <p>RAM Usage</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="machine-info">
+                <li>
+                    <span class="font-bold">Operating System :  </span><span class="font-light">Windows</span>
+                </li>
+                <li>
+                    <span class="font-bold">MAC Address :  </span><span class="font-light">4D-45-23-76-A3</span>
+                </li>
+                <li>
+                    <span class="font-bold">IP Address :  </span><span class="font-light">192.168.1.4</span>
+                </li>
+                <li>
+                    <hr>
+                </li>
+                <li>
+                    <span class="font-bold">CPU type :  </span><span class="font-light">Intel(R) Core(TM) i7-4770HQ CPU @ 2.20 GHz</span>
+                </li>
+                <li>
+                    <span class="font-bold">Number of Cores :  </span><span class="font-light">4</span>
+                </li>
+                <li>
+                    <span class="font-bold">Clock Speed :  </span><span class="font-light">2600</span>
+                </li>
+                <li>
+                    <span class="font-bold">Total Memory :  </span><span class="font-light">16gb</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"></script>
+<script src="index.js"></script>
+</body>
+
+</html>
