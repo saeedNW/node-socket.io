@@ -76,7 +76,7 @@ socket.on('connect', () => {
                             <span class="font-bold">Clock Speed :  </span><span class="font-light cpuSpeed-${computerId}"">${systemInfo.cpuSpeed}</span>
                         </li>
                         <li>
-                            <span class="font-bold">Total Memory :  </span><span class="font-light ramTotal-${computerId}"">${systemInfo.memoryTotal}</span>
+                            <span class="font-bold">Total Memory :  </span><span class="font-light ramTotal-${computerId}"">${Math.round(systemInfo.memoryTotal)}</span>
                         </li>
                     </ul>
                 </div>
@@ -89,5 +89,9 @@ socket.on('connect', () => {
             $(`.cpuPercent-${computerId}`).data('percent', systemInfo.cpuUsagePercent);
             $(`.ramPercent-${computerId}`).data('percent', systemInfo.memoryUsagePercent);
         }
-    })
+    });
+});
+
+socket.on('pcDisconnected', (disconnectId) => {
+    $(`#${disconnectId}`).remove();
 });
