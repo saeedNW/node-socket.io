@@ -1,4 +1,14 @@
 const os = require('os');
+const {io} = require("socket.io-client");
+const socket = io("http://localhost:8000");
+
+socket.on('connect', () => {
+    setInterval(async () => {
+        const systemInfo = await getSystemInfo();
+
+        socket.volatile.emit('dataFromPc', systemInfo);
+    }, 1000);
+});
 
 function getNetworkInfo() {
     for (const key in os.networkInterfaces()) {
@@ -71,7 +81,3 @@ function getSystemInfo() {
 
     });
 }
-
-setInterval(async () => {
-    console.log(await getSystemInfo());
-}, 1000)
