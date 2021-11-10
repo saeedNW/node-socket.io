@@ -10,6 +10,8 @@ const net = require('net');
 const express = require('express');
 /** import express module */
 const process = require('process');
+/** import socket.io module */
+const socketIo = require('socket.io');
 
 /** get countof cpu threads */
 const threadCount = os.cpus().length;
@@ -68,6 +70,13 @@ if (cluster.isMaster) {
 
     /** define express static */
     app.use(express.static(__dirname + '/public'));
+
+    /** create socket.io server */
+    const io = socketIo(server, {
+        cors: {
+            origin: '*'
+        }
+    });
 
     /** create http connection between master and workder */
     process.on('message', (message, connection) => {
