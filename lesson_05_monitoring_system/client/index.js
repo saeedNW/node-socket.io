@@ -62,7 +62,7 @@ function getSystemInfo() {
         const os_type = (os.type() === 'Darwin') ? 'MacOS' : (os.type() === 'Windows_NT') ? 'Windows' : os.type();
         /** get network info (ip and mac address) */
         const networkIp = getNetworkInfo().ip;
-        const netowrkMac = getNetworkInfo().mac;
+        const networkMac = getNetworkInfo().mac;
         /** get memory (ram) info */
         const memoryTotal = Math.round(os.totalmem() / 1073741824);  // convert to GB => 1024 * 1024 * 1024 = 1073741824
         const memoryFree = Math.round(os.freemem() / 1073741824);
@@ -75,7 +75,7 @@ function getSystemInfo() {
         let cpuUsagePercent = await getCpuLoad();
 
         resolve({
-            os_type, networkIp, netowrkMac, memoryTotal, memoryUsagePercent, cpuModel,
+            os_type, networkIp, networkMac, memoryTotal, memoryUsagePercent, cpuModel,
             cpuSpeed, cpuCores, cpuUsagePercent
         });
 

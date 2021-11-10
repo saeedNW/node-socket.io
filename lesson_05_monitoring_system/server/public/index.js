@@ -57,7 +57,7 @@ socket.on('connect', () => {
                             <span class="font-bold">Operating System :  </span><span class="font-light osType-${systemInfo.id}">${systemInfo.os_type}</span>
                         </li>
                         <li>
-                            <span class="font-bold">MAC Address :  </span><span class="font-light networkMac-${systemInfo.id}"">${systemInfo.netowrkMac}</span>
+                            <span class="font-bold">MAC Address :  </span><span class="font-light networkMac-${systemInfo.id}"">${systemInfo.networkMac}</span>
                         </li>
                         <li>
                             <span class="font-bold">IP Address :  </span><span class="font-light networkIp-${systemInfo.id}"">${systemInfo.networkIp}</span>
