@@ -16,3 +16,11 @@ lesson_03_chat/package-lock.json
 lesson_04_chat_pro/node_modules/
 
 lesson_04_chat_pro/package-lock.json
+
+lesson_05_monitoring_system/server/node_modules/
+
+lesson_05_monitoring_system/server/package-lock.json
+
+lesson_05_monitoring_system/client/node_modules/
+
+lesson_05_monitoring_system/client/package-lock.json
