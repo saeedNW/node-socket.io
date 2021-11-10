@@ -1,21 +1,5 @@
 const os = require('os');
 
-/** get os type */
-const os_type = (os.type() === 'Darwin') ? 'MacOS' : (os.type() === 'Windows_NT') ? 'Windows' : os.type();
-/** get network info (ip and mac address) */
-const networkIp = getNetworkInfo().ip;
-const netowrkMac = getNetworkInfo().mac;
-/** get memory (ram) info */
-const memoryTotal = Math.round(os.totalmem() / 1073741824);  // convert to GB => 1024 * 1024 * 1024 = 1073741824
-const memoryFree = Math.round(os.freemem() / 1073741824);
-const memoryUse = memoryTotal - memoryFree;
-const memoryUsagePercent = memoryUse * 100 / memoryTotal;
-/** get cpu info */
-const cpuModel = os.cpus()[0].model;
-const cpuSpeed = os.cpus()[0].speed;
-const cpuCores = os.cpus().length / 2;
-
-
 function getNetworkInfo() {
     for (const key in os.networkInterfaces()) {
         for (const value of os.networkInterfaces()[key]) {
@@ -28,7 +12,6 @@ function getNetworkInfo() {
         }
     }
 }
-
 
 function getCpuAverage() {
     let totalTime = 0;
@@ -61,3 +44,34 @@ function getCpuLoad() {
         }, 500);
     });
 }
+
+function getSystemInfo() {
+    return new Promise(async (resolve, reject) => {
+
+        /** get os type */
+        const os_type = (os.type() === 'Darwin') ? 'MacOS' : (os.type() === 'Windows_NT') ? 'Windows' : os.type();
+        /** get network info (ip and mac address) */
+        const networkIp = getNetworkInfo().ip;
+        const netowrkMac = getNetworkInfo().mac;
+        /** get memory (ram) info */
+        const memoryTotal = Math.round(os.totalmem() / 1073741824);  // convert to GB => 1024 * 1024 * 1024 = 1073741824
+        const memoryFree = Math.round(os.freemem() / 1073741824);
+        const memoryUse = memoryTotal - memoryFree;
+        const memoryUsagePercent = memoryUse * 100 / memoryTotal;
+        /** get cpu info */
+        const cpuModel = os.cpus()[0].model;
+        const cpuSpeed = os.cpus()[0].speed;
+        const cpuCores = os.cpus().length / 2;
+        let cpuUsagePercent = await getCpuLoad();
+
+        resolve({
+            os_type, networkIp, netowrkMac, memoryTotal, memoryUsagePercent, cpuModel,
+            cpuSpeed, cpuCores, cpuUsagePercent
+        });
+
+    });
+}
+
+setInterval(async () => {
+    console.log(await getSystemInfo());
+}, 1000)
