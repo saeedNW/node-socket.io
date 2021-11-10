@@ -15,6 +15,9 @@ const socketIo = require('socket.io');
 /** import socket.io-redis module */
 const redis = require('socket.io-redis');
 
+/** import socket handler */
+const soketHanler = require('./socketHandler');
+
 /** get countof cpu threads */
 const threadCount = os.cpus().length;
 
@@ -43,7 +46,6 @@ if (cluster.isMaster) {
     }
 
     let getWorkerIndex = (ip) => {
-        console.log(farmhash.fingerprint32(ip), farmhash.fingerprint32(ip) % threadCount)
         return farmhash.fingerprint32(ip) % threadCount;
     }
 
@@ -82,6 +84,9 @@ if (cluster.isMaster) {
 
     /** create redis adapter for socket.io */
     io.adapter(redis({host: 'localhost'}));
+
+    /** send io to socket handler */
+    soketHanler(io);
 
     /** create http connection between master and workder */
     process.on('message', (message, connection) => {
