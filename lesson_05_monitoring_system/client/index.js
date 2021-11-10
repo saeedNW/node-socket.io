@@ -64,10 +64,10 @@ function getSystemInfo() {
         const networkIp = getNetworkInfo().ip;
         const networkMac = getNetworkInfo().mac;
         /** get memory (ram) info */
-        const memoryTotal = Math.round(os.totalmem() / 1073741824);  // convert to GB => 1024 * 1024 * 1024 = 1073741824
-        const memoryFree = Math.round(os.freemem() / 1073741824);
+        const memoryTotal = os.totalmem() / 1073741824;  // convert to GB => 1024 * 1024 * 1024 = 1073741824
+        const memoryFree = os.freemem() / 1073741824;
         const memoryUse = memoryTotal - memoryFree;
-        const memoryUsagePercent = memoryUse * 100 / memoryTotal;
+        const memoryUsagePercent = Math.round(memoryUse * 100 / memoryTotal);
         /** get cpu info */
         const cpuModel = os.cpus()[0].model;
         const cpuSpeed = os.cpus()[0].speed;
