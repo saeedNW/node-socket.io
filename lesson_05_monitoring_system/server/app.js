@@ -12,6 +12,8 @@ const express = require('express');
 const process = require('process');
 /** import socket.io module */
 const socketIo = require('socket.io');
+/** import socket.io-redis module */
+const redis = require('socket.io-redis');
 
 /** get countof cpu threads */
 const threadCount = os.cpus().length;
@@ -77,6 +79,9 @@ if (cluster.isMaster) {
             origin: '*'
         }
     });
+
+    /** create redis adapter for socket.io */
+    io.adapter(redis({host: 'localhost'}));
 
     /** create http connection between master and workder */
     process.on('message', (message, connection) => {
